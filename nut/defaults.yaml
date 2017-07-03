@@ -12,23 +12,14 @@ nut:
       config: ups.conf
       maxretry: 3
       retrydelay: 1
-      units:
-        ups:
-          driver: dummy-ups
-          port: /dev/null
-          desc: Dummy server
+      units: {}
     upsd:
       config: upsd.conf
       service: nut-server
       enabled: true
     users:
       config: upsd.users
-      users:
-        ups:
-          password: ups
-          actions: SET FSD
-          instcmds: ALL
-          upsmon: master
+      users: {}
 
   client:
     pkg: nut-client
@@ -36,10 +27,5 @@ nut:
     service: nut-monitor
     enabled: true
     config: upsmon.conf
-    monitor:
-      monitor:
-        ups:
-          system: ups@localhost
-          username: upsmon
-          password: ups
+    monitor: {}
 

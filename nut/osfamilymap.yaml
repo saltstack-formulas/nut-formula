@@ -1,0 +1,6 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+RedHat:
+  config_dir: /etc/ups
+  server:
+    pkg: nut

@@ -1,0 +1,40 @@
+---
+driver:
+  name: vagrant
+
+verifier:
+  name: inspec
+  sudo: true
+
+platforms:
+  - name: debian/jessie64
+  - name: ubuntu/trusty64
+  - name: ubuntu/xenial64
+  - name: centos/7
+
+provisioner:
+  name: salt_solo
+  # log_level: debug
+  salt_version: '2016.11.6'
+  # salt_bootstrap_options: -D
+  salt_bootstrap_url: 'https://bootstrap.saltstack.com/stable/bootstrap-salt.sh'
+  # data_path: test/shared
+  is_file_root: true
+  require_chef: false
+
+  pillars:
+    top.sls:
+      base:
+        '*':
+          - nut
+    nut.sls:
+      nut:
+        placeholder: true
+
+suites:
+  - name: nut
+    provisioner:
+      state_top:
+        base:
+          '*':
+            - nut

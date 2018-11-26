@@ -3,7 +3,7 @@
 
 {% from "nut/map.jinja" import nut with context %}
 {% set ups_config = nut.server.ups if nut.server.ups is defined else {} %}
-{% set upsd_config = nut.server.upsd.config if nut.server.upsd.config is defined else {} %}
+{% set upsd_config = nut.server.upsd.upsd if nut.server.upsd.upsd is defined else {} %}
 {% set upsd_users = nut.server.users.users if nut.server.users.users is defined else {} %}
 
 include:

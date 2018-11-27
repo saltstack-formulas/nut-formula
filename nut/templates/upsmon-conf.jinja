@@ -93,7 +93,7 @@ RUN_AS_USER {{ upsmon.run_as_user }}
 MONITOR {{ upsmon.monitor }}
   {%- elif upsmon.monitor is mapping %}
     {%- for u, p in upsmon.monitor.iteritems() %}
-MONITOR {{ p['system'] }} {{ p['powervalue'] | default('1') }} {{ p['username'] }} {{ p['password'] }} {{ type |default('master') }}
+MONITOR {{ p['system'] }} {{ p['powervalue'] | default('1') }} {{ p['username'] }} {{ p['password'] }} {{ p['type'] |default('master') }}
     {%- endfor %}
   {%- else %}
     {%- for m in upsmon.monitor %}

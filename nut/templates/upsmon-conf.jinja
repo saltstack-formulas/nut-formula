@@ -92,7 +92,7 @@ RUN_AS_USER {{ upsmon.run_as_user }}
   {%- if upsmon.monitor is string %}
 MONITOR {{ upsmon.monitor }}
   {%- elif upsmon.monitor is mapping %}
-    {%- for u, p in upsmon.monitor.iteritems() %}
+    {%- for u, p in upsmon.monitor.items() %}
 MONITOR {{ p['system'] }} {{ p['powervalue'] | default('1') }} {{ p['username'] }} {{ p['password'] }} {{ p['type'] |default('master') }}
     {%- endfor %}
   {%- else %}

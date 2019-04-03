@@ -143,10 +143,10 @@
 maxretry = {{ ups.maxretry }}
 retrydelay = {{ ups.retrydelay }}
 
-{%- for name, params in ups.units.iteritems() %}
+{%- for name, params in ups.units.items() %}
 
 [{{ name }}]
-  {%- for k,v in params.iteritems() %}
+  {%- for k,v in params.items() %}
   {{ k }} = {{ v }}
   {%- endfor %}
 

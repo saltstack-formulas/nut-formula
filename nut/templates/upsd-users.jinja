@@ -74,9 +74,9 @@
 #
 # MONITOR myups@localhost 1 upsmon pass master	(or slave)
 
-{%- for name, params in users.iteritems() %}
+{%- for name, params in users.items() %}
 [{{ name }}]
-  {%- for k,v in params.iteritems() %}
+  {%- for k,v in params.items() %}
     {%- if k == 'upsmon' %}
     {{ k }} {{ v }}
     {%- else %}

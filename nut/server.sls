@@ -20,7 +20,7 @@ ups_conf:
     - name: {{ nut.config_dir }}/{{ nut.server.ups.config }}
     - source: salt://nut/templates/ups-conf.jinja
     - context:
-        ups: {{ ups_config }}
+        ups: {{ ups_config|tojson }}
     - template: jinja
     - mode: 640
     - user: root
@@ -37,7 +37,7 @@ upsd_conf:
     - name: {{ nut.config_dir }}/{{ nut.server.upsd.config }}
     - source: salt://nut/templates/upsd-conf.jinja
     - context:
-        upsd: {{ upsd_config }}
+        upsd: {{ upsd_config|tojson }}
     - template: jinja
     - mode: 640
     - user: root
@@ -54,7 +54,7 @@ upsd_users:
     - name: {{ nut.config_dir }}/{{ nut.server.users.config}}
     - source: salt://nut/templates/upsd-users.jinja
     - context:
-        users: {{ upsd_users }}
+        users: {{ upsd_users|tojson }}
     - template: jinja
     - mode: 640
     - user: root

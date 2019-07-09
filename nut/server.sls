@@ -54,7 +54,7 @@ upsd_users:
     - name: {{ nut.config_dir }}/{{ nut.server.users.config}}
     - source: salt://nut/templates/upsd-users.jinja
     - context:
-        users: {{ upsd_users|tojson }}
+        users: {{ upsd_users | json }}
     - template: jinja
     - mode: 640
     - user: root

@@ -37,7 +37,7 @@ upsd_conf:
     - name: {{ nut.config_dir }}/{{ nut.server.upsd.config }}
     - source: salt://nut/templates/upsd-conf.jinja
     - context:
-        upsd: {{ upsd_config|tojson }}
+        upsd: {{ upsd_config | json }}
     - template: jinja
     - mode: 640
     - user: root

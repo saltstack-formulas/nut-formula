@@ -20,7 +20,7 @@ ups_conf:
     - name: {{ nut.config_dir }}/{{ nut.server.ups.config }}
     - source: salt://nut/templates/ups-conf.jinja
     - context:
-        ups: {{ ups_config|tojson }}
+        ups: {{ ups_config | json }}
     - template: jinja
     - mode: 640
     - user: root

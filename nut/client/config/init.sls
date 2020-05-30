@@ -2,5 +2,5 @@
 # vim: ft=sls
 
 include:
-  - .server
-  - .client
+  - .upsmon
+  - .upssched

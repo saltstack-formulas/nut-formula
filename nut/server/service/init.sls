@@ -2,5 +2,4 @@
 # vim: ft=sls
 
 include:
-  - .server
-  - .client
+  - .running

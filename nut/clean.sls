@@ -2,5 +2,5 @@
 # vim: ft=sls
 
 include:
-  - .server
-  - .client
+  - .server.clean
+  - .client.clean

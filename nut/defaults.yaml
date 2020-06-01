@@ -1,31 +1,46 @@
 # -*- coding: utf-8 -*-
 # vim: ft=yaml
+---
 nut:
   mode: standalone
   config_dir: /etc/nut
   config: nut.conf
+  user: nut
+  group: nut
   server:
-    pkg: nut-server
+    pkgs:
+      - nut-server
     ups:
-      service: nut-driver
-      enabled: true
-      config: ups.conf
-      maxretry: 3
-      retrydelay: 1
-      units: {}
+      service:
+        name: nut-driver
+        enabled: true
+      config:
+        file: ups.conf
+        maxretry: 3
+        retrydelay: 1
+        units: {}
     upsd:
-      config: upsd.conf
-      service: nut-server
-      enabled: true
+      service:
+        name: nut-server
+        enabled: true
+      config:
+        file: upsd.conf
     users:
-      config: upsd.users
-      users: {}
+      config:
+        file: upsd.users
+        users: {}
 
   client:
-    pkg: nut-client
-    extra_pkgs: []
-    service: nut-monitor
-    enabled: true
-    config: upsmon.conf
-    monitor: {}
-
+    pkgs:
+      - nut-client
+    upsmon:
+      service:
+        name: nut-monitor
+        enabled: true
+      config:
+        file: upsmon.conf
+        monitor: {}
+    upssched:
+      config:
+        file: upssched.conf
+        monitor: {}

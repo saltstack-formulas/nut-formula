@@ -2,5 +2,6 @@
 # vim: ft=sls
 
 include:
-  - .server
-  - .client
+  - .package
+  - .config
+  - .service

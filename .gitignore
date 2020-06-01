@@ -1,81 +1,122 @@
-*~
-*#
-.bak
-/bin/
-build
-/build
-.cache
-*,cover
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+#  Usually these files are written by a python script from a packager
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
 .coverage
 .coverage.*
+.cache
+nosetests.xml
 coverage.xml
-dist
-doc/_build
-.doctrees
-*.DS_Store
-*.egg-info
-/etc/
-*_flymake.py
-Gemfile.lock
-htmlcov/
+*.cover
 .hypothesis/
-.idea
-*.idea
-*.iml
-/include/
-junit*.xml
 .kitchen
 .kitchen.local.yml
-/lib/
-/lib64/
-/local/
-/logs
-MANIFEST
-metadata.json
+kitchen.local.yml
+junit-*.xml
+
+# Translations
 *.mo
-nosetests.xml
-.orig
-/pip/
-pkg/
-/.project
-*.pyc
-__pycache__/
-*$py.class
-*.py[co]
-*.py[cod]
-/.pydevproject
-/root/**
-/.ropeproject
+*.pot
+
+# Django stuff:
+*.log
+local_settings.py
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# celery beat schedule file
+celerybeat-schedule
+
+# SageMath parsed files
+*.sage.py
+
+# dotenv
+.env
+
+# virtualenv
+.venv
+venv/
+ENV/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
 .ropeproject
-.ruby-version
-/salt/_syspaths.py
-/.settings
-/share/
-/src
-*.sublime-project
-*.sublime-workspace
-.*.sw?
-*.swo
-*.swp
-_syspaths.py
-tags
-tests/build/
-/tests/cachedir/
-tests/integration/cloud/providers/logs
-tests/integration/cloud/providers/pki/minions
-tests/integration/files/conf/grains
-/tests/integration/tmp/
-/tests/unit/templates/roots/
-tests/unit/templates/roots
-*.tmp
-top.sls
-.tox/
-.vagrant/
-**/.vagrant
-**/Vagrantfile
-/var/
-varstack.egg-info
-vendor
-_version.py
-*.wpr
-*.wpu
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+
+# Bundler
+.bundle/
+
+# copied `.md` files used for conversion to `.rst` using `m2r`
+docs/*.md
+
+# Vim
+*.sw?
+
+## Collected when centralising formulas (check and sort)
+# `collectd-formula`
+.pytest_cache/
+/.idea/
+Dockerfile.*_*
+ignore/
+tmp/

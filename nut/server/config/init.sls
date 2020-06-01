@@ -2,5 +2,7 @@
 # vim: ft=sls
 
 include:
-  - .server
-  - .client
+  - .mode
+  - .upsd
+  - .ups
+  - .users

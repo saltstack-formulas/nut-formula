@@ -1,65 +1,160 @@
 # -*- coding: utf-8 -*-
 # vim: ft=yaml
+---
 nut:
-  # These default values configures both the nut client and server on the same
-  # host
-  mode: standalone
+  # All the parameters (key) names in the `config` sections correspond to an
+  # equivalent parameter in the conf files, lowercased.
+  # Commented parameters are left undefined so they respect the values provided
+  # by the distros packages.
   config_dir: /etc/nut
   config: nut.conf
+  rootgroup: nut
 
+  ### MAIN NUT MODE FILE
+  mode: standalone
   server:
-    pkg: nut-server
+    pkgs:
+      - nut-server
     # The nut-server package includes various parts, so each config file has a
     # section here
+    ### THE UPS DRIVERS
     ups:
-      service: nut-driver
-      enabled: true
-      config: ups.conf
-      maxretry: 3
-      retrydelay: 1
-      units:
-        # Each UPS can have a different configuration
-        ups1:
-          driver: dummy-ups
-          port: /dev/null
-          desc: Dummy server
-        apc:
-          driver: apcsmart
-          port: /dev/usb0
-          desc: An APC APC
-        powerware:
-          driver: bcmxcp_usb
-          port: auto
-          desc: A PowerWare UPS
+      service:
+        name: nut-driver
+        enabled: true
+      config:
+        file: ups.conf
+        maxretry: 3
+        retrydelay: 1
+        units:
+          # Each UPS can have a different configuration section and multiple
+          # UPS can be managed by a single NUT server
+          ups1:
+            driver: dummy-ups
+            port: /dev/null
+            desc: Dummy server
+          apc:
+            driver: apcsmart
+            port: /dev/usb0
+            desc: An APC APC
+          powerware:
+            driver: bcmxcp_usb
+            port: auto
+            desc: A PowerWare UPS
+
+    ### NUT's UPS DAEMON
     upsd:
-      service: nut-server
-      enabled: true
-      config: upsd.conf
+      service:
+        name: nut-server
+        enabled: true
+      config:
+        file: upsd.conf
+        # maxage: 15
+        # statepath: /run/nut
+        ### LISTEN can be set as a string, like
+        # listen: address
+        # or as a list, like:
+        # listen:
+        #   - 'address_1:port'
+        #   - 'address_2:port'
+        #   - 'address3'
+        # max_connections: 1024
+        # cert_file:
+        # cert_path:
+        # cert_ident:
+        # cert_request:
+
+    ### USERS WITH ACCESS TO UPSD
     users:
-      config: upsd.users
-      users:
-        ups:
-          password: ups
-          actions: SET FSD
-          instcmds: ALL
-          upsmon: master
+      config:
+        file: upsd.users
+        users:
+          ups:
+            password: ups
+            actions: SET FSD
+            instcmds: ALL
+            upsmon: master
 
+  ### NUT HAS A COLLECTION OF CLIENT APPLICATIONS WHICH USUALLY COME IN
+  ### SINGLE PACKAGE
   client:
-    pkg: nut-client
-    extra_pkgs: []
-    service: nut-monitor
-    enabled: true
-    config: upsmon.conf
-    monitor:
-      monitor:
-        # Each UPS that is monitored by this host should have an entry
-        # following the format
-        # MONITOR <system> <powervalue> <username> <password> ("master"|"slave")
-        # A list with entries (one UPS per line) or a dict are supported
-        # - powerware@some.host 1 john jpass master
-        # - some@other.ups 1 user pass slave
-        ups:
-          system: ups@localhost
-          username: upsmon
-          password: ups
+    pkgs:
+      - nut-client
 
+    ### THIS IS THE CONFIGURATION SECTION FOR UPSMON, THE DEFAULT CLIENT APP
+    ### THAT MONITORS AND MANAGES THE SERVERS CONNECTED TO THE UPS
+    upsmon:
+      service:
+        name: nut-monitor
+        enabled: true
+      config:
+        file: upsmon.conf
+        # run_as_user: nut
+        # minsupplies: 1
+        # shutdowncmd: /sbin/shutdown -h +0
+        # notifycmd: /some/notify/script
+        # pollfreq: 5
+        # pollfreqalert: 5
+        # hostsync: 15
+        # deadtime: 15
+        # powerdownflag: killpower
+        ### NOTIFYMSG can be set as a string, like
+        # notifymsg: 'ONBATT      "UPS %s on battery"'
+        # or as a map, like:
+        # notifymsg:
+        #   online: some online message
+        #   onbatt: an on battery message
+        #   lowbatt: ...
+        #   fsd: ...
+        #   commok: ...
+        #   commbad: ...
+        #   shutdown: ...
+        #   replbatt: ...
+        #   nocomm: ...
+        #   noparent: ...
+        ### NOTIFYFLAG has the same treatment as NOTIFYMSG
+        # notifyflag:
+        # rbwarntime: 43200
+        # nocommwarntime: 300
+        # finaldelay: 5
+        ### CERTPATH DEPENDS ON COMPILATION, SEE NUT DOCS
+        # certpath:
+        ### CERTIDENT DEPENDS ON COMPILATION, SEE NUT DOCS
+        # certident:
+        #   name: certificate_name
+        #   password: certificate_password
+        ### CERTHOST DEPENDS ON COMPILATION, SEE NUT DOCS
+        # certhost:
+        #   hostname: localhost
+        #   name: My nut server
+        #   certverify: 1
+        #   forcessl: 1
+        ### CERTVERIFY DEPENDS ON COMPILATION, SEE NUT DOCS
+        # certverify: 1
+        # forcessl: 1
+
+        monitor:
+          # Each UPS that is monitored by this host should have an entry
+          # following the format
+          # MONITOR <system> <powervalue> <username> <password> ("master"|"slave")
+          # A list with entries (one UPS per line) or a dict are supported
+          # - powerware@some.host 1 john jpass master
+          # - some@other.ups 1 user pass slave
+          ups:
+            system: ups@localhost
+            username: upsmon
+            password: ups
+
+    upssched:
+      config:
+        file: upssched.conf
+        # cmdscript: /bin/upssched-cmd
+        ### PIPEFN is usually undefined for security reasons. SEE NUT DOCS
+        # pipefn:
+        # lockfn:
+        ### As AT supports a few differnt combination of parameters, I just
+        ### left it as a list of commands to expand, like
+        # at:
+        #   - COMMOK myups@localhost CANCEL-TIMER upsgone
+        #   - COMMBAD * START-TIMER upsgone 10
+        #   - ONLINE * EXECUTE ups-back-on-line

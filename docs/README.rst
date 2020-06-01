@@ -50,6 +50,11 @@ NUT has *server* and *client* applications and packages are usually separated in
 * <server> states are required to manage the packages that directly deal with the UPS (driver, nut-server, etc.)
 * <client> states are required to manage the packages that communicate with the *nut-server* (upsmon, upssched, etc.)
 
+Special notes
+-------------
+
+None.
+
 Available states
 ----------------
 

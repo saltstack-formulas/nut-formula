@@ -11,8 +11,8 @@ extends: default
 ignore: |
   node_modules/
   test/**/states/**/*.sls
-  test/salt/pillar/default.sls
   .kitchen/
+  test/salt/pillar/default.sls
 
 yaml-files:
   # Default settings

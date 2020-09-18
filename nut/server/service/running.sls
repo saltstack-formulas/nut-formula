@@ -26,6 +26,8 @@ nut-server-service-running-ups-service-running:
       - sls: {{ sls_server_config_ups }}
       - sls: {{ sls_server_config_upsd }}
       - sls: {{ sls_server_config_users }}
+    # If the mode is 'none' we respect the package and do nothing
+    - unless: test "{{ nut.mode }}" = "none"
 
 nut-server-service-running-upsd-service-running:
   service.running:
@@ -36,3 +38,5 @@ nut-server-service-running-upsd-service-running:
       - sls: {{ sls_server_config_ups }}
       - sls: {{ sls_server_config_upsd }}
       - sls: {{ sls_server_config_users }}
+    # If the mode is 'none' we respect the package and do nothing
+    - unless: test "{{ nut.mode }}" = "none"

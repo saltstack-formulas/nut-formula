@@ -1,0 +1,17 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
+name: mode-eq-none
+title: nut formula
+maintainer: SaltStack Formulas
+license: Apache-2.0
+summary: Verify that the nut services are not started in mode='none'
+supports:
+  - platform-name: debian
+  - platform-name: ubuntu
+  - platform-name: centos
+  - platform-name: fedora
+  - platform-name: opensuse
+  - platform-name: suse
+  - platform-name: freebsd
+  - platform-name: arch

@@ -164,3 +164,19 @@ suites:
     verifier:
       inspec_tests:
         - path: test/integration/default
+  - name: mode-eq-none
+    provisioner:
+      state_top:
+        base:
+          '*':
+            - nut
+      pillars:
+        top.sls:
+          base:
+            '*':
+              - nut
+      pillars_from_files:
+        nut.sls: test/salt/pillar/mode-eq-none.sls
+    verifier:
+      inspec_tests:
+        - path: test/integration/mode-eq-none

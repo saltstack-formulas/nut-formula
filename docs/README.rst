@@ -53,7 +53,8 @@ NUT has *server* and *client* applications and packages are usually separated in
 Special notes
 -------------
 
-None.
+Following *NUT*'s configuration logic, when ``nut.mode: 'none'``, the ``.running`` states will do nothing and skip the services management.
+Therefore, they'll be left as the OS packages set them.
 
 Available states
 ----------------

@@ -17,3 +17,5 @@ nut-client-service-running-upsmon-service-running:
     - enable: {{ nut.client.upsmon.service.enabled }}
     - watch:
       - sls: {{ sls_client_config_upsmon }}
+    # If the mode is 'none' we respect the package and do nothing
+    - unless: test "{{ nut.mode }}" = "none"

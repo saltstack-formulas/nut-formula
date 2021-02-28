@@ -22,7 +22,7 @@ control 'nut packages' do
     # Catch remaining `linux` platforms to identify by `name` at the end
     when 'linux'
       case platform[:name]
-      when 'arch'
+      when 'arch', 'gentoo'
         %w[
           nut
         ]

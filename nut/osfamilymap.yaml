@@ -33,3 +33,10 @@ Arch:
   client:
     pkgs:
       - nut
+Gentoo:
+  server:
+    pkgs:
+      - sys-power/nut
+  client:
+    pkgs:
+      - sys-power/nut

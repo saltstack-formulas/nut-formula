@@ -24,7 +24,7 @@ nut:
     upsd:
       config:
         maxage: 20
-        {%- if grains.os_family not in ('Suse',) %}
+        {%- if grains.os_family not in ('Suse', 'Gentoo',) %}
         statepath: /run/nut
         {%- endif %}
 

@@ -47,7 +47,7 @@ control 'nut configuration' do
     it { should be_grouped_into nut_group }
     its('mode') { should cmp '0640' }
     its('content') { should include '# Your changes will be overwritten.' }
-    unless %w[suse].include? os.family
+    unless %w[opensuse gentoo].include? platform.name
       its('content') { should include 'STATEPATH /run/nut' }
     end
     its('content') { should include 'MAXAGE 20' }

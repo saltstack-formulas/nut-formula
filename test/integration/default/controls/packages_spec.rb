@@ -25,7 +25,6 @@ control 'nut packages' do
       when 'arch'
         %w[
           nut
-          nut-client
         ]
       end
     end

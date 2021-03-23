@@ -1,14 +1,11 @@
 # -*- coding: utf-8 -*-
 # vim: ft=yaml
 ---
-name: mode-eq-none
-title: nut formula
+name: share
+title: InSpec shared resources
 maintainer: SaltStack Formulas
 license: Apache-2.0
-summary: Verify that the nut services are not started in mode='none'
-depends:
-  - name: share
-    path: test/integration/share
+summary: shared resources
 supports:
   - platform-name: debian
   - platform-name: ubuntu

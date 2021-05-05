@@ -1,9 +1,6 @@
-.. role:: raw=html=m2r(raw)
-   :format: html
-
 
 Changelog
----------
+=========
 
 `1.1.0 <https://github.com/saltstack-formulas/nut-formula/compare/v1.0.0...v1.1.0>`_ (2020-09-20)
 -----------------------------------------------------------------------------------------------------
@@ -47,4 +44,4 @@ BREAKING CHANGES
 
 * **states+config:** the templates are now under "nut/files/default".
 * **states+config:** "pkg" and "extra_pkgs" are now merged under a "pkgs" list.
-* **states+config:** config file names are now under "<server|client>.\ :raw-html-m2r:`<component>`.config.file"
+* **states+config:** config file names are now under ``<server|client>.<component>.config.file``

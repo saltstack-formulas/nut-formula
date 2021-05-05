@@ -34,4 +34,4 @@
 
 * **states+config:** the templates are now under "nut/files/default".
 * **states+config:** "pkg" and "extra_pkgs" are now merged under a "pkgs" list.
-* **states+config:** config file names are now under "<server|client>.<component>.config.file"
+* **states+config:** config file names are now under `<server|client>.<component>.config.file`

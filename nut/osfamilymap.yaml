@@ -30,6 +30,9 @@ Arch:
   server:
     pkgs:
       - nut
+    ups:
+      service:
+        name: nut-server
   client:
     pkgs:
       - nut

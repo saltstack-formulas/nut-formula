@@ -3,6 +3,17 @@
 ---
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
+ci:
+  autofix_commit_msg: |
+    ci(pre-commit.ci): apply auto fixes from pre-commit.com hooks
+
+    for more information, see https://pre-commit.ci
+  autofix_prs: true
+  autoupdate_branch: ''
+  autoupdate_commit_msg: 'ci(pre-commit.ci): perform pre-commit autoupdate'
+  autoupdate_schedule: weekly
+  skip: []
+  submodules: false
 default_stages: [commit]
 repos:
   - repo: https://github.com/dafyddj/commitlint-pre-commit-hook
@@ -63,3 +74,8 @@ repos:
                 docs/TOFS_pattern.rst|
             )$
         additional_dependencies: [pygments==2.9.0]
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.2.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace

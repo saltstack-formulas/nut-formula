@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 # vim: ft=sls
 
+{%- from "nut/map.jinja" import nut as nutmap with context %}
+
 {#- Get the `tplroot` from `tpldir` #}
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- set sls_config_file = tplroot ~ '.config.file' %}
@@ -17,17 +19,19 @@ include:
   - {{ sls_server_config_upsd }}
   - {{ sls_server_config_users }}
 
-nut-server-service-running-ups-service-running:
+{%- for svc in nutmap.server.ups.services %}
+nut-server-service-running-ups-service-running-{{ loop.index }}:
   service.running:
-    - name: {{ nut.server.ups.service.name }}
-    - enable: {{ nut.server.ups.service.enabled }}
+    - name: {{ svc.name }}
+    - enable: {{ svc.enabled }}
     - watch:
       - sls: {{ sls_server_config_mode }}
       - sls: {{ sls_server_config_ups }}
       - sls: {{ sls_server_config_upsd }}
       - sls: {{ sls_server_config_users }}
     # If the mode is 'none' we respect the package and do nothing
-    - unless: test "{{ nut.mode }}" = "none"
+    - unless: test "{{ nutmap.mode }}" = "none"
+{%- endfor %}
 
 nut-server-service-running-upsd-service-running:
   service.running:

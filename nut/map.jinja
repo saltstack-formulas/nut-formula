@@ -39,3 +39,26 @@
 {%-   set macos_group = salt['cmd.run']("stat -f '%Sg' /dev/console") %}
 {%-   do nut.update({'group': macos_group}) %}
 {%- endif %}
+
+
+{# BEGIN: Post-processing for multi-UPS + Debian 10/12 nut-driver@ups #}
+{%- set os_ver = grains.get('osrelease', '0') | int %}
+{%- set ups_units = salt['pillar.get']('nut:server:ups:config:units', {}) %}
+{%- set ups_keys = ups_units.keys() | list %}
+
+{%- if os_ver < 12 %}
+  {# Debian 10 : one service only nut-driver #}
+  {%- do nut.setdefault('server', {}).setdefault('ups', {}).update({
+        'services': [{'name': 'nut-driver', 'enabled': True}]
+      }) %}
+{%- else %}
+  {# Debian 12+ : un service par UPS #}
+  {%- set services = [] %}
+  {%- for ups in ups_keys %}
+    {%- do services.append({'name': 'nut-driver@' ~ ups, 'enabled': True}) %}
+  {%- endfor %}
+  {%- do nut.setdefault('server', {}).setdefault('ups', {}).update({
+        'services': services
+      }) %}
+{%- endif %}
+{# END: Post-processing for multi-UPS + Debian 10/12 nut-driver@ups #}

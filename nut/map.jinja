@@ -41,27 +41,24 @@
 {%- endif %}
 
 
-{# BEGIN of post-processing for Debian >=12 nut-driver@ups #}
+{# BEGIN: Post-processing for multi-UPS + Debian 10/12 nut-driver@ups #}
 {%- set os_ver = grains.get('osrelease', '0') | int %}
 {%- set ups_units = salt['pillar.get']('nut:server:ups:config:units', {}) %}
 {%- set ups_keys = ups_units.keys() | list %}
-{%- set first_ups = ups_keys[0] if ups_keys | length > 0 else 'unknown' %}
 
 {%- if os_ver < 12 %}
-nut:
-  server:
-    ups:
-      service:
-        name: nut-driver
-        enabled: true
-      instance: ''
+  {# Debian 10 : one service only nut-driver #}
+  {%- do nut.setdefault('server', {}).setdefault('ups', {}).update({
+        'services': [{'name': 'nut-driver', 'enabled': True}]
+      }) %}
 {%- else %}
-nut:
-  server:
-    ups:
-      service:
-        name: nut-driver@{{ first_ups }}
-        enabled: true
-      instance: {{ first_ups }}
+  {# Debian 12+ : un service par UPS #}
+  {%- set services = [] %}
+  {%- for ups in ups_keys %}
+    {%- do services.append({'name': 'nut-driver@' ~ ups, 'enabled': True}) %}
+  {%- endfor %}
+  {%- do nut.setdefault('server', {}).setdefault('ups', {}).update({
+        'services': services
+      }) %}
 {%- endif %}
-{# END of post-processing for Debian >=12 nut-driver@ups #}
+{# END: Post-processing for multi-UPS + Debian 10/12 nut-driver@ups #}

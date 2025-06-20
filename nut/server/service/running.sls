@@ -3,13 +3,6 @@
 
 {% import_yaml "nut/map.jinja" as nutmap %}
 
-log-nut-instance:
-  module.run:
-    - name: cmd.run
-    - cmd: >
-        echo "DEBUG: nut-driver instance = {{ nutmap.nut.server.ups.instance }}, service = {{ nutmap.nut.server.ups.service.name }}"
-
-
 {#- Get the `tplroot` from `tpldir` #}
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- set sls_config_file = tplroot ~ '.config.file' %}

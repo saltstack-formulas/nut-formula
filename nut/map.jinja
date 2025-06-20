@@ -40,11 +40,22 @@
 {%-   do nut.update({'group': macos_group}) %}
 {%- endif %}
 
-{# On récupère l'unité UPS définie dans les pillars #}
+
+{# BEGIN of post-processing for Debian >=12 nut-driver@ups #}
+{%- set os_ver = grains.get('osrelease', '0') | int %}
 {%- set ups_units = salt['pillar.get']('nut:server:ups:config:units', {}) %}
 {%- set ups_keys = ups_units.keys() | list %}
 {%- set first_ups = ups_keys[0] if ups_keys | length > 0 else 'unknown' %}
 
+{%- if os_ver < 12 %}
+nut:
+  server:
+    ups:
+      service:
+        name: nut-driver
+        enabled: true
+      instance: ''
+{%- else %}
 nut:
   server:
     ups:
@@ -52,3 +63,5 @@ nut:
         name: nut-driver@{{ first_ups }}
         enabled: true
       instance: {{ first_ups }}
+{%- endif %}
+{# END of post-processing for Debian >=12 nut-driver@ups #}

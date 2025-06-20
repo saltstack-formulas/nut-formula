@@ -39,3 +39,16 @@
 {%-   set macos_group = salt['cmd.run']("stat -f '%Sg' /dev/console") %}
 {%-   do nut.update({'group': macos_group}) %}
 {%- endif %}
+
+{# On récupère l'unité UPS définie dans les pillars #}
+{%- set ups_units = salt['pillar.get']('nut:server:ups:config:units', {}) %}
+{%- set ups_keys = ups_units.keys() | list %}
+{%- set first_ups = ups_keys[0] if ups_keys | length > 0 else 'unknown' %}
+
+nut:
+  server:
+    ups:
+      service:
+        name: nut-driver@{{ first_ups }}
+        enabled: true
+      instance: {{ first_ups }}

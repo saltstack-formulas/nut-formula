@@ -1,6 +1,15 @@
 # -*- coding: utf-8 -*-
 # vim: ft=sls
 
+{% import_yaml "nut/map.jinja" as nutmap %}
+
+log-nut-instance:
+  module.run:
+    - name: cmd.run
+    - cmd: >
+        echo "DEBUG: nut-driver instance = {{ nutmap.nut.server.ups.instance }}, service = {{ nutmap.nut.server.ups.service.name }}"
+
+
 {#- Get the `tplroot` from `tpldir` #}
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- set sls_config_file = tplroot ~ '.config.file' %}
@@ -19,8 +28,8 @@ include:
 
 nut-server-service-running-ups-service-running:
   service.running:
-    - name: {{ nut.server.ups.service.name }}
-    - enable: {{ nut.server.ups.service.enabled }}
+    - name: {{ nutmap.nut.server.ups.service.name }}
+    - enable: {{ nutmap.nut.server.ups.service.enabled }}
     - watch:
       - sls: {{ sls_server_config_mode }}
       - sls: {{ sls_server_config_ups }}
